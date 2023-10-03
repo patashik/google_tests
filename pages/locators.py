@@ -11,4 +11,7 @@ class SearchPageLocators():
     
 class ResultPageLocators():
     SEARCH_STRING = (By.NAME, "q")
+    CAT_PAW = (By.CSS_SELECTOR, "div[data-animal-type='1']")
+    PAW_SCREEN = (By.CSS_SELECTOR, "canvas.GQ0mne")
+    CLOSE_PAW_BUTTON = (By.CSS_SELECTOR, "div[class='XgKUwb Ke4YHe d4TAJd']")
 
