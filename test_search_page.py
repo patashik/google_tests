@@ -83,6 +83,22 @@ class TestHappyPathChrome():
         result_page = ResultPage(browser_chrome, browser_chrome.current_url)
         result_page.should_be_correct_response_status_code()
         result_page.should_open_lens_page()
+    
+    @pytest.mark.cat    
+    def test_cat(self, browser_chrome):
+        search_request = "international cat day"
+        link = "https://www.google.com/"
+        search_page = SearchPage(browser_chrome, link)
+        search_page.open()
+        search_page.should_be_correct_response_status_code()
+        browser_chrome.implicitly_wait(5) 
+        search_page.start_search_by_press_enter(search_request)
+        result_page = ResultPage(browser_chrome, browser_chrome.current_url)
+        result_page.should_be_correct_response_status_code()
+        result_page.should_be_search_request_in_search_string(search_request)
+        browser_chrome.implicitly_wait(5) 
+        result_page.should_click_cat_paw()
+        result_page.should_close_cat_paw()
         
 @pytest.mark.firefox
 class TestHappyPathFirefox():
