@@ -2,6 +2,7 @@ from .base_page import BasePage
 from .locators import SearchPageLocators
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+import time
 
 class SearchPage(BasePage):
     def choose_prediction(self):
@@ -13,7 +14,11 @@ class SearchPage(BasePage):
     def start_search_by_button(self, search_request):
         search_string = self.browser.find_element(*SearchPageLocators.SEARCH_STRING)
         search_string.send_keys(search_request)
-        search_button = self.browser.find_element(*SearchPageLocators.SEARCH_BUTTON)
+        search_button = self.is_clickable(*SearchPageLocators.SEARCH_BUTTON)
+        search_button.click()
+
+    def push_search_button(self):
+        search_button = self.is_clickable(*SearchPageLocators.SEARCH_BUTTON)
         search_button.click()
 
     def start_search_by_image_file(self, file_path):
@@ -48,6 +53,13 @@ class SearchPage(BasePage):
         search_string.send_keys(search_request)
         search_string.send_keys(Keys.ENTER)
         
-
-    
+    def start_search_by_screen_keyboard(self, search_request):
+        screen_keyboard = self.browser.find_element(*SearchPageLocators.SCREEN_KEYBOARD)
+        screen_keyboard.click()
+        symbols = list(search_request)
+        for i in symbols:
+            symbol_button = self.browser.find_element(By.XPATH, '//span[text()="'+i+'"]')
+            symbol_button.click()
+        search_button = self.is_clickable(*SearchPageLocators.SEARCH_BUTTON)
+        search_button.click()
 

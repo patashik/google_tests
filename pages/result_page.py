@@ -22,21 +22,22 @@ class ResultPage(BasePage):
         assert prediction_content in search_string.text, "Search request does not match prediction"
         
     def should_open_lens_page(self):
-        lens_url = "https://lens.google.com/"
-        assert lens_url in self.url, "Image search did not start"
+        lens_url = "https://lens.google.com/search"
+        assert self.url_contains(lens_url), "Did not open Google lens"
         
     def should_click_cat_paw(self):
-        paw = self.browser.find_element(*ResultPageLocators.CAT_PAW)
+        self.has_disappeared(*ResultPageLocators.USELESS_BOX)
+        paw = self.is_clickable(*ResultPageLocators.CAT_PAW)
         paw.click()
-        paw_screen = self.browser.find_element(*ResultPageLocators.PAW_SCREEN)
+        paw_screen = self.is_clickable(*ResultPageLocators.PAW_SCREEN)
         paw_screen.click()
-        time.sleep(2)
+        time.sleep(1)
         paw_screen.click()
-        time.sleep(2)
+        time.sleep(1)
         paw_screen.click()
-        time.sleep(2)
+        time.sleep(1)
         assert paw_screen, "No cat - no paws :((("
-        
+    
     def should_close_cat_paw(self):
         close_paw_button = self.browser.find_element(*ResultPageLocators.CLOSE_PAW_BUTTON)
         close_paw_button.click()
