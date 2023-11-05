@@ -8,7 +8,7 @@ class SearchPage(BasePage):
     def choose_prediction(self):
         search_string = self.browser.find_element(*SearchPageLocators.SEARCH_STRING)
         search_string.click()
-        prediction_item = self.browser.find_element(*SearchPageLocators.PREDICTION_ITEM)
+        prediction_item = self.is_clickable(*SearchPageLocators.PREDICTION_ITEM)
         return prediction_item
 
     def start_search_by_button(self, search_request):

@@ -22,6 +22,7 @@ class TestHappyPathChrome():
             search_page.open()
             search_page.should_be_correct_response_status_code()
         with allure.step("Step 2: insert text and activate search"):
+            browser_chrome.implicitly_wait(5) 
             search_page.start_search_by_button(search_request)
         with allure.step("Step 3: go to search result page"):
             search_page.url_changed()
@@ -59,6 +60,7 @@ class TestHappyPathChrome():
             search_page.open()
             search_page.should_be_correct_response_status_code()
         with allure.step("Step 2: insert text and activate search"):
+            browser_chrome.implicitly_wait(5) 
             search_page.start_search_by_screen_keyboard(search_request)
         with allure.step("Step 3: go to search result page"):
             search_page.url_changed()
@@ -66,6 +68,7 @@ class TestHappyPathChrome():
             result_page.should_be_correct_response_status_code()
             result_page.should_be_search_request_in_search_string(search_request)
 
+    @pytest.mark.predict
     @allure.title("Text search by prediction")
     @allure.story("Text search by prediction")
     @allure.sub_suite("Tests for prediction search")
@@ -78,7 +81,7 @@ class TestHappyPathChrome():
         with allure.step("Step 2: choose prediction and activate search"):
             browser_chrome.implicitly_wait(5) 
             prediction_item = search_page.choose_prediction()
-            prediction_content = prediction_item.text
+            prediction_content = prediction_item.get_attribute("aria-label")
             print(f"это подсказка - {prediction_content}")
             prediction_item.click()
         with allure.step("Step 3: go to search result page"):
@@ -100,7 +103,7 @@ class TestHappyPathChrome():
             search_page.open()
             search_page.should_be_correct_response_status_code()
         with allure.step("Step 2: upload file and activate search"):
-            browser_chrome.implicitly_wait(10)
+            browser_chrome.implicitly_wait(5)
             search_page.start_search_by_image_file(file_path) 
         with allure.step("Step 3: go to search result page"):
             search_page.url_changed()
@@ -184,6 +187,7 @@ class TestHappyPathFirefox():
             search_page.open()
             search_page.should_be_correct_response_status_code()
         with allure.step("Step 2: insert text and activate search"):
+            browser_firefox.implicitly_wait(5) 
             search_page.start_search_by_button(search_request)
         with allure.step("Step 3: go to search result page"):
             search_page.url_changed()
@@ -202,7 +206,7 @@ class TestHappyPathFirefox():
             search_page.open()
             search_page.should_be_correct_response_status_code()
         with allure.step("Step 2: insert text and activate search"):
-            browser_firefox.implicitly_wait(10) 
+            browser_firefox.implicitly_wait(5) 
             search_page.start_search_by_press_enter(search_request)
         with allure.step("Step 3: go to search result page"):
             search_page.url_changed()
@@ -210,6 +214,7 @@ class TestHappyPathFirefox():
             result_page.should_be_correct_response_status_code()
             result_page.should_be_search_request_in_search_string(search_request)
     
+    @pytest.mark.key
     @allure.title("Text search using screen keyboard")
     @allure.story("Text search using screen keyboard")
     @allure.sub_suite("Tests for text search") 
@@ -221,6 +226,7 @@ class TestHappyPathFirefox():
             search_page.open()
             search_page.should_be_correct_response_status_code()
         with allure.step("Step 2: insert text and activate search"):
+            browser_firefox.implicitly_wait(5) 
             search_page.start_search_by_screen_keyboard(search_request)
         with allure.step("Step 3: go to search result page"):
             search_page.url_changed()
@@ -228,6 +234,7 @@ class TestHappyPathFirefox():
             result_page.should_be_correct_response_status_code()
             result_page.should_be_search_request_in_search_string(search_request)
 
+    @pytest.mark.predict
     @allure.title("Text search by prediction")
     @allure.story("Text search by prediction")
     @allure.sub_suite("Tests for prediction search")
@@ -240,7 +247,7 @@ class TestHappyPathFirefox():
         with allure.step("Step 2: choose prediction and activate search"):
             browser_firefox.implicitly_wait(5) 
             prediction_item = search_page.choose_prediction()
-            prediction_content = prediction_item.text
+            prediction_content = prediction_item.get_attribute("aria-label")
             print(f"это подсказка - {prediction_content}") #на случай падения теста
             prediction_item.click()
         with allure.step("Step 3: go to search result page"):
@@ -280,6 +287,7 @@ class TestHappyPathFirefox():
             search_page.open()
             search_page.should_be_correct_response_status_code()
         with allure.step("Step 2: insert link and activate search"):
+            browser_firefox.implicitly_wait(5) 
             search_page.start_search_by_image_link_and_button(image_link)
         with allure.step("Step 3: go to search result page"):
             search_page.url_changed()
@@ -317,7 +325,7 @@ class TestHappyPathFirefox():
             search_page.open()
             search_page.should_be_correct_response_status_code()
         with allure.step("Step 2: insert link and activate search"):
-            browser_firefox.implicitly_wait(10) 
+            browser_firefox.implicitly_wait(5) 
             search_page.start_search_by_press_enter(search_request)
         with allure.step("Step 3: go to search result page and enjoy cat paws"):
             search_page.url_changed()
